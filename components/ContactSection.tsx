@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, Send, CheckCircle2 } from 'lucide-react';
@@ -11,26 +10,26 @@ const ContactSection: React.FC = () => {
     e.preventDefault();
     setLoading(true);
 
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
-    
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
     try {
-      const response = await fetch('https://formspree.io/f/mvgzqlqj', { 
+      const response = await fetch('https://formspree.io/f/xbdjjlen', {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: formData,
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
+          Accept: 'application/json',
+        },
       });
 
       if (response.ok) {
         setSubmitted(true);
+        form.reset();
       } else {
-        setSubmitted(true); // Fallback UI for demo
+        setSubmitted(true); // fallback UI
       }
     } catch (err) {
-      console.error("Submission error", err);
+      console.error('Submission error', err);
       setSubmitted(true);
     } finally {
       setLoading(false);
@@ -66,7 +65,9 @@ const ContactSection: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-[10px] text-gray-500 font-black uppercase tracking-[0.4em] mb-1">Email Us</p>
-                  <a href="mailto:contact.fluencex@gmail.com" className="text-xl md:text-2xl font-black text-white hover:text-blue-500 transition-colors">contact.fluencex@gmail.com</a>
+                  <a href="mailto:contact.fluencex@gmail.com" className="text-xl md:text-2xl font-black text-white hover:text-blue-500 transition-colors">
+                    contact.fluencex@gmail.com
+                  </a>
                 </div>
               </div>
 
@@ -76,7 +77,9 @@ const ContactSection: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-[10px] text-gray-500 font-black uppercase tracking-[0.4em] mb-1">Call HQ</p>
-                  <a href="tel:9750505481" className="text-xl md:text-2xl font-black text-white hover:text-blue-500 transition-colors">9750505481</a>
+                  <a href="tel:9750505481" className="text-xl md:text-2xl font-black text-white hover:text-blue-500 transition-colors">
+                    9750505481
+                  </a>
                 </div>
               </div>
             </div>
@@ -94,13 +97,22 @@ const ContactSection: React.FC = () => {
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center py-16">
                   <CheckCircle2 size={80} className="text-green-500 mx-auto mb-8" />
                   <h3 className="text-4xl font-outfit font-black text-white mb-4 uppercase">Message Sent!</h3>
-                  <p className="text-gray-400 font-medium text-lg">Our strategists are already looking at your request. Talk soon!</p>
-                  <button onClick={() => setSubmitted(false)} className="mt-10 text-blue-500 font-bold uppercase tracking-widest text-xs hover:underline">
+                  <p className="text-gray-400 font-medium text-lg">
+                    Our strategists are already looking at your request. Talk soon!
+                  </p>
+                  <button
+                    onClick={() => setSubmitted(false)}
+                    className="mt-10 text-blue-500 font-bold uppercase tracking-widest text-xs hover:underline"
+                  >
                     Send another message
                   </button>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
+                  
+                  {/* Recommended email subject */}
+                  <input type="hidden" name="_subject" value="New Contact Message – FluenceX" />
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                     <div className="space-y-3">
                       <label className="text-xs font-black uppercase tracking-widest text-gray-500 ml-1">Name</label>
@@ -111,12 +123,20 @@ const ContactSection: React.FC = () => {
                       <input required name="email" type="email" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-blue-500 transition-all font-medium" placeholder="your@email.com" />
                     </div>
                   </div>
+
                   <div className="space-y-3">
                     <label className="text-xs font-black uppercase tracking-widest text-gray-500 ml-1">Brand Vision</label>
                     <textarea required name="message" rows={5} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-blue-500 transition-all font-medium resize-none" placeholder="What are your goals?"></textarea>
                   </div>
-                  <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} disabled={loading} type="submit" className="w-full py-5 md:py-6 gradient-bg rounded-2xl text-white font-black text-lg md:text-xl uppercase tracking-widest shadow-2xl shadow-blue-600/30 transition-all flex items-center justify-center gap-4 disabled:opacity-50">
-                    {loading ? "SENDING..." : "LAUNCH MESSAGE"}
+
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    disabled={loading}
+                    type="submit"
+                    className="w-full py-5 md:py-6 gradient-bg rounded-2xl text-white font-black text-lg md:text-xl uppercase tracking-widest shadow-2xl shadow-blue-600/30 transition-all flex items-center justify-center gap-4 disabled:opacity-50"
+                  >
+                    {loading ? 'SENDING...' : 'LAUNCH MESSAGE'}
                     <Send size={24} />
                   </motion.button>
                 </form>
