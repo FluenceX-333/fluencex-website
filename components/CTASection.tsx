@@ -29,8 +29,8 @@ const CTASection: React.FC = () => {
         </svg>
       </div>
 
-      <div className="max-w-5xl mx-auto relative z-10">
-        <div className="relative p-12 md:p-24 rounded-[4rem] overflow-hidden border border-white/10 shadow-2xl">
+      <div className="max-w-4xl mx-auto relative z-10">
+        <div className="relative p-12 md:p-18 rounded-[4rem] overflow-hidden border border-white/10 shadow-2xl">
           {/* Main Gradient Background */}
           <div className="absolute inset-0 gradient-bg" />
           

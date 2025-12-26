@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Instagram, Twitter, Linkedin, X, Shield, FileText, HelpCircle, Sparkles, Send } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -8,6 +7,21 @@ const Footer: React.FC = () => {
   const [modalType, setModalType] = useState<'privacy' | 'terms' | 'help' | null>(null);
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+
+  const socialLinks = [
+    {
+      icon: Instagram,
+      url: 'https://www.instagram.com/fluencex_/',
+    },
+    {
+      icon: Twitter,
+      url: 'https://x.com/fluence10898',
+    },
+    {
+      icon: Linkedin,
+      url: 'https://www.linkedin.com/company/110555374/admin/dashboard/',
+    },
+  ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>, href: string) => {
     e.preventDefault();
@@ -72,8 +86,14 @@ const Footer: React.FC = () => {
               Scaling brands to millions through high-performance influencer partnerships.
             </p>
             <div className="flex gap-4">
-              {[Instagram, Twitter, Linkedin].map((Icon, i) => (
-                <a key={i} href="#" className="w-12 h-12 rounded-2xl glass flex items-center justify-center text-gray-400 hover:text-blue-500 transition-all border border-white/5">
+              {socialLinks.map(({ icon: Icon, url }, i) => (
+                <a
+                  key={i}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 rounded-2xl glass flex items-center justify-center text-gray-400 hover:text-blue-500 transition-all border border-white/5"
+                >
                   <Icon size={20} />
                 </a>
               ))}
