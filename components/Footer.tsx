@@ -36,7 +36,7 @@ const Footer: React.FC = () => {
     if (!email) return;
     
     try {
-      await fetch('https://formspree.io/f/mvgzqlqj', {
+      await fetch('https://formspree.io/f/xbdjjlen7', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, subject: 'FluenceX Newsletter Signup' })
